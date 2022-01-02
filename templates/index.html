@@ -13,10 +13,16 @@
     <section>
         <!-- <h1 class="icon"><i class="fas fa-film"></i></h1> -->
         <h1 class="heading">Actor <br><i class="fas fa-film"></i>unt</h1>
-        <div class="searchbar">
-            <input class="search" type="text" name="actor" required autocomplete="off"/>
-            <span>{{content}}</span>
-        </div>
+        <form action="/">
+            <div class="searchbar">
+                <input class="search" type="text" name="actor" required autocomplete="off"/>
+                <span id="underline"></span>
+            </div>
+            <div class="btn-div">
+                <button>Submit</button>
+            </div>
+        </form>
+        <span>{{content}}</span>
 
     </section>
 </body>
