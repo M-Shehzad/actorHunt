@@ -1,11 +1,17 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
+# from requests.api import request
 # import writingInfo
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods = ["POST", "GET"])
 def mainPage():
-    return render_template("index.html", content="Hello world")
+    if request.method != "POST":
+        return render_template("index.html", content="")
+
+    return render_template("index.html", content=request.form["actor"])
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
