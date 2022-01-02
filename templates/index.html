@@ -8,15 +8,17 @@
     <link rel="stylesheet" href="../static/style.css">
     <title>Actor Search</title>
 </head>
+{% block content %}
 <body>
     <section>
         <!-- <h1 class="icon"><i class="fas fa-film"></i></h1> -->
         <h1 class="heading">Actor <br><i class="fas fa-film"></i>unt</h1>
         <div class="searchbar">
             <input class="search" type="text" name="actor" required autocomplete="off"/>
-            <span></span>
+            <span>{{content}}</span>
         </div>
 
     </section>
 </body>
+{% endblock %}
 </html>
