@@ -71,7 +71,8 @@ section {
   transition: all 0.2s linear;
 }
 
-.search:focus + #underline::after {
+.search:focus + #underline::after,
+.search:valid + #underline::after {
   transform: scaleX(1);
 }
 
