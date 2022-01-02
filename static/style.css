@@ -4,6 +4,8 @@
 }
 
 * {
+  padding: 0;
+  margin: 0;
   font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
   text-decoration: none;
@@ -100,4 +102,17 @@ form button {
 form button:hover {
   background-color: blueviolet;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* actor display */
+.actorName {
+  margin: 0.5em 0;
+  text-align: center;
+  color: #1c1c1e;
+  font-size: 3rem;
+}
+.actor-img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 3em;
 }
