@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap");
+:root {
+  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+}
+
+section {
+  /* border: 1px solid black; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em 3em;
+  /* margin: 2rem 10%; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.icon {
+  text-align: center;
+  font-size: 5rem;
+}
+
+.heading {
+  width: 100%;
+  text-align: center;
+  color: #1c1c1e;
+  font-size: 3rem;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.search {
+  text-align: center;
+  padding: 0.05em 0.5em;
+  font-weight: 600;
+  font-size: 2rem;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.search:focus {
+  /* border-bottom: 2px solid blueviolet; */
+}
+.searchbar {
+  position: relative;
+}
+.searchbar span::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: blueviolet;
+  box-shadow: blueviolet 0px 7px 29px 0px;
+  transform: scaleX(0);
+  transition: all 0.2s linear;
+}
+
+.search:focus + span::after {
+  transform: scaleX(1);
+}
