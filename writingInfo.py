@@ -8,13 +8,13 @@ import docx,os
 def DoIt(actor):
     res = requests.get('https://www.imdb.com/find?q='+actor.replace('','+'))
     res.raise_for_status()
-    soup = bs4.BeautifulSoup(res.text)
+    soup = bs4.BeautifulSoup(res.text, "html.parser")
     soupelem = soup.select('.result_text a')
     actorpage = requests.get('https://www.imdb.com'+soupelem[0].get('href'))
     actorpage.raise_for_status()
 
     #actor page soup
-    soup = bs4.BeautifulSoup(actorpage.text)
+    soup = bs4.BeautifulSoup(actorpage.text, "html.parser")
 
     #actor info
     actorName = soup.select('.header .itemprop')[0].text
@@ -42,7 +42,7 @@ def DoIt(actor):
         
 
     wb = openpyxl.Workbook()
-    sheet = wb.get_active_sheet()
+    sheet = wb.get_sheet_by_name("Sheet")
     sheet['A1'].value = 'Title'
     sheet['B1'].value = 'Year'
 

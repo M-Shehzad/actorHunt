@@ -10,7 +10,7 @@
 </head>
 {% block content %}
 <body>
-    <section>
+    <section class="main">
         <!-- <h1 class="icon"><i class="fas fa-film"></i></h1> -->
         <h1 class="heading">Actor <br><i class="fas fa-film"></i>unt</h1>
         <form action="#" method = "post">
@@ -22,8 +22,13 @@
                 <button>Submit</button>
             </div>
         </form>
-        <span>{{content}}</span>
+        <span>your last search was {{content}}</span>
 
+    </section>
+    <section>
+        <div>
+            <a href="/adp-miniproject/actordesc.docx" download="document.docx">download the document</a>
+        </div>
     </section>
 </body>
 {% endblock %}
