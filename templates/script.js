@@ -12,6 +12,8 @@ async function search(){
             actorname: actorName
         })
     })
+    data = res.JSON()
+    console.log(data)
 }
 
 btn.addEventListener('click',(e)=>{
