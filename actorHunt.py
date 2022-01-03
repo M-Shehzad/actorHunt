@@ -8,8 +8,8 @@ def mainPage():
     if request.method != "POST":
         return render_template("index.html", content="")
 
-    writingInfo.DoIt(request.form["actor"])
-    return render_template("index.html", content=request.form["actor"])
+    actorName, actorJobs, actorBD, actorPhotoPath = writingInfo.DoIt(request.form["actor"])
+    return render_template("actorDisplay.html", content=[actorName, actorJobs, actorBD, actorPhotoPath])
 
 
 

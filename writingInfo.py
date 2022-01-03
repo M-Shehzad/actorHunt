@@ -69,3 +69,4 @@ def DoIt(actor):
     wb.save('actorMovies.xlsx')
     doc.save('actordesc.docx')
     print('success!')
+    return actorName, actorJobs, actorBD,actorPhotoPath

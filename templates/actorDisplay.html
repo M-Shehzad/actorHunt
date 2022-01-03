@@ -8,12 +8,18 @@
     <title>actor info</title>
 </head>
 <body>
+    {% block content %}
     <section>
-        <h1 class='actorName'>Zendaya</h1>
-        <img class="actor-img" src="../photos/MV5BMjAxZTk4NDAtYjI3Mi00OTk3LTg0NDEtNWFlNzE5NDM5MWM1XkEyXkFqcGdeQXVyOTI3MjYwOQ@@._V1_UY317_CR12,0,214,317_AL__QL50.jpg" alt="">
-        <p><b>Occupation:</b> Actor | producer | director</p>
-        <p><b>Born: </b> September 1, 1996 in Oakland, California, USA</p>
-
+        <h1 class='actorName'>{{content[0]}}</h1>
+        <img class="actor-img" src="../photos/{{content[3]}}" alt="">
+        <p><b>Occupation:</b> {{content[1]}} </p>
+        <p><b>Born: </b> {{content[2]}} </p>
     </section>
+    <form action="/" method="get">
+        <div>
+            <button>Go back</button>
+        </div>
+    </form>
+    {% endblock %}
 </body>
 </html>
