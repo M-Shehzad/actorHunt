@@ -37,22 +37,40 @@
 
 {% block script %}
 <script>
-    function search() {
-        var name = document.getElementById("actor")
-        var entry = {
-            name : name.value
-        };
+    // function search() {
+    //     var name = document.getElementById("actor")
+    //     var entry = {
+    //         name : name.value
+    //     };
 
-        fetch('/search', {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify(entry),
-            cache: "no-cache",
-            headers: new Headers({
-                "content-type": "application/json"
-            })
+    //     fetch('/search', {
+    //         method: "POST",
+    //         credentials: "include",
+    //         body: JSON.stringify(entry),
+    //         cache: "no-cache",
+    //         headers: new Headers({
+    //             "content-type": "application/json",
+    //             "accept":"application/json"
+    //         })
+    //     })
+    //     .then(res=>res.json())
+    //     .then(data=>console.log(data))
+    // }
+    actorName = document.querySelector('.search');
+    async function search(){
+    res = await fetch('http://127.0.0.1:5000/search',{
+        method:'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify({
+            name: actorName.value
         })
-    }
+    })
+    data = await res.json()
+    console.log(data)
+}
+
 </script>
 
 {% endblock %}
