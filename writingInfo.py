@@ -68,7 +68,7 @@ def DoIt(actor):
     doc.add_paragraph("Actor Jobs: " + ", ".join(actorJobs))
     doc.add_paragraph(actorBD)
 
-    wb.save("actorMovies.xlsx")
-    doc.save("actordesc.docx")
+    wb.save("static/actorMovies.xlsx")
+    doc.save("static/actordesc.docx")
     print("success!")
     return actorName, actorJobs, actorBD, actorPhoto
