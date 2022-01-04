@@ -18,8 +18,8 @@
                 <input class="search" type="text" name="actor" id="actor" required autocomplete="off"/>
                 <span id="underline"></span>
             </div>
-            <div class="btn-div">
-                <button class="btn btn-primary" onclick="search();">Submit</button>
+            <div class='btn-div'>
+                <button class='btn' onclick="search();">Submit</button>
             </div>
         
         <span></span>
@@ -27,18 +27,16 @@
     </section>
     <section id="actor-info">
         <h1 class="actorName"></h1>
-        <img class="actor-img" src="../photos/MV5BMjAxZTk4NDAtYjI3Mi00OTk3LTg0NDEtNWFlNzE5NDM5MWM1XkEyXkFqcGdeQXVyOTI3MjYwOQ@@._V1_UY317_CR12,0,214,317_AL__QL50.jpg" alt="">
-        <p class="actorOccupation"><b>Occupation:</b>  </p>
-        <p class="actorBday"><b>Born: </b> </p>
-    </section>
-    <section>
+        <img class="actor-img" src="" alt="">
         <div>
-            <a href="/static/actordesc.docx" download >Download the description document</a>
+            <b>Occupation: </b><span class="actorOccupation"></span>
         </div>
-    </section>
-    <section>
         <div>
-            <a href="/static/actorMovies.xlsx" download >Download the movies starred in</a>
+            <b>Born: </b><span class="actorBday"></span>
+        </div>
+        <div id="btn-download">
+            <a class="btn" href="/static/actordesc.docx" download >Download bio</a>
+            <a class="btn" href="/static/actorMovies.xlsx" download >Download movies</a>
         </div>
     </section>
     <!-- <script src="./script.js"></script> -->
@@ -48,31 +46,22 @@
 
 {% block script %}
 <script>
-    // function search() {
-    //     var name = document.getElementById("actor")
-    //     var entry = {
-    //         name : name.value
-    //     };
-
-    //     fetch('/search', {
-    //         method: "POST",
-    //         credentials: "include",
-    //         body: JSON.stringify(entry),
-    //         cache: "no-cache",
-    //         headers: new Headers({
-    //             "content-type": "application/json",
-    //             "accept":"application/json"
-    //         })
-    //     })
-    //     .then(res=>res.json())
-    //     .then(data=>console.log(data))
-    // }
     actorNameInput = document.querySelector('.search');
     actorNameheading = document.querySelector('.actorName');
     actorImg = document.querySelector('.actor-img')
     actorOccupation = document.querySelector('.actorOccupation');
     actorBday = document.querySelector('.actorBday');
     actorInfo = document.querySelector('#actor-info');
+
+    // actorNameInput.addEventListener('focus',(event)=>{
+    //     document.querySelector('.fa-film').style.color='blueviolet';
+        
+    // })
+    // actorNameInput.addEventListener('blur',(event)=>{
+    //     document.querySelector('.fa-film').style.color='black';
+        
+    // })
+
 
     async function postreq(){
     res = await fetch('/search',{
