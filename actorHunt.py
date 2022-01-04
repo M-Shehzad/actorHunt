@@ -10,6 +10,7 @@ from flask import (
 )
 import writingInfo
 import requests
+import sqlite3
 
 app = Flask(__name__)
 
@@ -29,7 +30,24 @@ def getJson():
         # print(request)
         req = request.get_json()
         print(req)
-        actorName, actorJobs, actorBD, actorPhotoPath = writingInfo.DoIt(req["name"])
+
+# --------------------------DATABASE-------------------------------------------------------------------------------
+        conn = sqlite3.connect("database.sqlite")
+        cur = conn.cursor()
+
+        cur.execute("CREATE TABLE IF NOT EXISTS ACTORHUNT (NAME TEXT, DOB TEXT, JOB TEXT, PICTURE TEXT)")
+        cur.execute("SELECT * FROM ACTORHUNT WHERE NAME = ?",(req["name"].lower(),))
+        data = cur.fetchone()
+        if data is None:
+            actorName, actorJobs, actorBD, actorPhotoPath = writingInfo.DoIt(req["name"])
+            cur.execute("INSERT INTO ACTORHUNT (NAME, DOB, JOB, PICTURE) VALUES (?, ?, ?, ?)",(str(actorName).lower(), str(actorBD), str(actorJobs), str(actorPhotoPath)))
+
+        else:
+            actorName, actorBD, actorJobs, actorPhotoPath = data
+        cur.close()
+        conn.close()
+# -----------------------------------------------------------------------------------------------------------------
+
         res = make_response(
             jsonify(
                 {
@@ -43,13 +61,10 @@ def getJson():
         )
         print(res.data)
         return res
-    return "get request"
+    return "get request received, something wrong"
 
 
-@app.route("/result", methods=["POST"])
-def resultPage(par):
-    # print(par)
-    return "helloworld"
+
 
 
 if __name__ == "__main__":
