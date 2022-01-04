@@ -25,6 +25,12 @@
         <span></span>
 
     </section>
+    <section id="actor-info">
+        <h1 class="actorName"></h1>
+        <img class="actor-img" src="../photos/MV5BMjAxZTk4NDAtYjI3Mi00OTk3LTg0NDEtNWFlNzE5NDM5MWM1XkEyXkFqcGdeQXVyOTI3MjYwOQ@@._V1_UY317_CR12,0,214,317_AL__QL50.jpg" alt="">
+        <p class="actorOccupation"><b>Occupation:</b>  </p>
+        <p class="actorBday"><b>Born: </b> </p>
+    </section>
     <section>
         <div>
             <a href="trial.jpg" download>download the document</a>
@@ -56,20 +62,35 @@
     //     .then(res=>res.json())
     //     .then(data=>console.log(data))
     // }
-    actorName = document.querySelector('.search');
-    async function search(){
-    res = await fetch('http://127.0.0.1:5000/search',{
+    actorNameInput = document.querySelector('.search');
+    actorNameheading = document.querySelector('.actorName');
+    actorImg = document.querySelector('.actor-img')
+    actorOccupation = document.querySelector('.actorOccupation');
+    actorBday = document.querySelector('.actorBday');
+    actorInfo = document.querySelector('#actor-info');
+
+    async function postreq(){
+    res = await fetch('/search',{
         method:'POST',
         headers:{
             'content-type':'application/json'
         },
         body:JSON.stringify({
-            name: actorName.value
+            name: actorNameInput.value
         })
     })
     data = await res.json()
-    console.log(data)
-}
+    return data
+    }
+
+    async function search(){
+        data = await postreq();
+        actorNameheading.innerText=data.name;
+        actorImg.src = data.pic;
+        actorOccupation.innerText=data.job;
+        actorBday.innerText=data.dob;
+        actorInfo.style.display='block';
+    }
 
 </script>
 

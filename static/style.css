@@ -15,11 +15,11 @@
   transition: all 0.2s linear;
 }
 
-body {
-  /* background-image: url(../hollywood.jpg); */
+/* body {
+  background-image: url(../hollywood.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 section {
   background-color: white;
@@ -87,7 +87,7 @@ section {
   justify-content: center;
 }
 
-form button {
+.btn-div button {
   margin-top: 1rem;
   display: inline-block;
   font-size: 1.2rem;
@@ -99,12 +99,15 @@ form button {
   transition: all 0.2s linear;
 }
 
-form button:hover {
+.btn-div button:hover {
   background-color: blueviolet;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 /* actor display */
+#actor-info {
+  display: none;
+}
 .actorName {
   margin: 0.5em 0;
   text-align: center;
