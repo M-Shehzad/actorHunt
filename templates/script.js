@@ -3,7 +3,7 @@ btn = document.querySelector('.btn-div button');
 actorName = document.querySelector('.search');
 
 async function search(){
-    res = await fetch('/search',{
+    res = await fetch('http://127.0.0.1:5000/search',{
         method:'POST',
         headers:{
             'content-type':'application/json'

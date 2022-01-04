@@ -25,7 +25,7 @@ def DoIt(actor):
     # print(actorDescription.text.split('...')[0])
     actorBDsoup = soup.select('#name-born-info')[0]
     actorBD = ' '.join(list(map(lambda text:text.strip(),actorBDsoup.text.split('\n'))))
-    print(actorJobs)
+    # print(actorJobs)
 
     #all the movies of the actor
     soupelem = soup.select('#filmo-head-actor + .filmo-category-section .filmo-row')

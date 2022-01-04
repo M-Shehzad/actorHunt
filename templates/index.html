@@ -13,13 +13,13 @@
     <section class="main">
         <!-- <h1 class="icon"><i class="fas fa-film"></i></h1> -->
         <h1 class="heading">Actor <br><i class="fas fa-film"></i>unt</h1>
-        <form action="#" method = "post">
+        <form action="/loading" method = "get">
             <div class="searchbar">
-                <input class="search" type="text" name="actor" required autocomplete="off"/>
+                <input class="search" type="text" name="actor" id="actor" required autocomplete="off"/>
                 <span id="underline"></span>
             </div>
             <div class="btn-div">
-                <button>Submit</button>
+                <button onclick="search();">Submit</button>
             </div>
         </form>
         <span></span>
@@ -30,7 +30,29 @@
             <a href="trial.jpg" download>download the document</a>
         </div>
     </section>
-    <script src="./script.js"></script>
+    <!-- <script src="./script.js"></script> -->
 </body>
 {% endblock %}
 </html>
+
+{% block script %}
+<script>
+    function search() {
+        var name = document.getElementById("actor")
+        var entry = {
+            name : name.value
+        };
+
+        fetch('/search', {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(entry),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json"
+            })
+        })
+    }
+</script>
+
+{% endblock %}
