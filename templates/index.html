@@ -23,20 +23,23 @@
             </div>
         
         <span></span>
-
+        
     </section>
     <section id="actor-info">
-        <h1 class="actorName"></h1>
-        <img class="actor-img" src="" alt="">
-        <div>
-            <b>Occupation: </b><span class="actorOccupation"></span>
-        </div>
-        <div>
-            <b>Born: </b><span class="actorBday"></span>
-        </div>
-        <div id="btn-download">
-            <a class="btn" href="/static/actordesc.docx" download >Download bio</a>
-            <a class="btn" href="/static/actorMovies.xlsx" download >Download movies</a>
+        <img id='spinner' src="../static/Spinner.gif" alt="">
+        <div class="info">
+            <h1 class="actorName"></h1>
+            <img class="actor-img" src="" alt="">
+            <div>
+                <b>Occupation: </b><span class="actorOccupation"></span>
+            </div>
+            <div>
+                <b>Born: </b><span class="actorBday"></span>
+            </div>
+            <div id="btn-download">
+                <a class="btn" href="/static/actordesc.docx" download >Download bio</a>
+                <a class="btn" href="/static/actorMovies.xlsx" download >Download movies</a>
+            </div>
         </div>
     </section>
     <!-- <script src="./script.js"></script> -->
@@ -46,12 +49,14 @@
 
 {% block script %}
 <script>
+    spinner = document.querySelector('#spinner');
     actorNameInput = document.querySelector('.search');
     actorNameheading = document.querySelector('.actorName');
     actorImg = document.querySelector('.actor-img')
     actorOccupation = document.querySelector('.actorOccupation');
     actorBday = document.querySelector('.actorBday');
     actorInfo = document.querySelector('#actor-info');
+    info = document.querySelector('.info');
 
     actorNameInput.addEventListener('focus',(event)=>{
         document.querySelector('.fa-film').style.color='blueviolet';
@@ -78,12 +83,16 @@
     }
 
     async function search(){
+        info.style.display='none';
+        actorInfo.style.display='block';
+        spinner.style.display='block';
         data = await postreq();
+        spinner.style.display='none';
+        info.style.display='block';
         actorNameheading.innerText=data.name;
         actorImg.src = data.pic;
         actorOccupation.innerText=data.job;
         actorBday.innerText=data.dob;
-        actorInfo.style.display='block';
     }
 
 </script>
