@@ -36,7 +36,7 @@ def getJson():
                 {
                     "name": actorName,
                     "job": actorJobs[1:-1],
-                    "dob": actorBD,
+                    "dob": actorBD[5:],
                     "pic": actorPhotoPath,
                 }
             ),
