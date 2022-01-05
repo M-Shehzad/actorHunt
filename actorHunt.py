@@ -27,27 +27,21 @@ def mainPage():
 @app.route("/search", methods=["POST", "GET"])
 def getJson():
     if request.method == "POST":
-        # print(request)
         req = request.get_json()
-        print(req)
 
-# --------------------------DATABASE-------------------------------------------------------------------------------
-        actorName, actorBD, actorJobs, actorPhotoPath = writingInfo.DoIt(req["name"])
+        actorName, actorBD, actorJobs, actorPhotoPath, _ = writingInfo.DoIt(req["name"])
         
-# -----------------------------------------------------------------------------------------------------------------
-
         res = make_response(
             jsonify(
                 {
                     "name": actorName,
-                    "job": actorJobs,
+                    "job": actorJobs[1:-1],
                     "dob": actorBD,
                     "pic": actorPhotoPath,
                 }
             ),
             200,
         )
-        print(res.data)
         return res
     return "get request received, something wrong"
 
