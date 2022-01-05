@@ -32,20 +32,8 @@ def getJson():
         print(req)
 
 # --------------------------DATABASE-------------------------------------------------------------------------------
-        conn = sqlite3.connect("database.sqlite")
-        cur = conn.cursor()
-
-        cur.execute("CREATE TABLE IF NOT EXISTS ACTORHUNT (NAME TEXT, DOB TEXT, JOB TEXT, PICTURE TEXT)")
-        cur.execute("SELECT * FROM ACTORHUNT WHERE NAME = ?",(req["name"].lower(),))
-        data = cur.fetchone()
-        if data is None:
-            actorName, actorJobs, actorBD, actorPhotoPath = writingInfo.DoIt(req["name"])
-            cur.execute("INSERT INTO ACTORHUNT (NAME, DOB, JOB, PICTURE) VALUES (?, ?, ?, ?)",(str(actorName).lower(), str(actorBD), str(actorJobs), str(actorPhotoPath)))
-
-        else:
-            actorName, actorBD, actorJobs, actorPhotoPath = data
-        cur.close()
-        conn.close()
+        actorName, actorBD, actorJobs, actorPhotoPath = writingInfo.DoIt(req["name"])
+        
 # -----------------------------------------------------------------------------------------------------------------
 
         res = make_response(
