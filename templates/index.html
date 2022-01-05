@@ -53,14 +53,14 @@
     actorBday = document.querySelector('.actorBday');
     actorInfo = document.querySelector('#actor-info');
 
-    // actorNameInput.addEventListener('focus',(event)=>{
-    //     document.querySelector('.fa-film').style.color='blueviolet';
+    actorNameInput.addEventListener('focus',(event)=>{
+        document.querySelector('.fa-film').style.color='blueviolet';
         
-    // })
-    // actorNameInput.addEventListener('blur',(event)=>{
-    //     document.querySelector('.fa-film').style.color='black';
+    })
+    actorNameInput.addEventListener('blur',(event)=>{
+        document.querySelector('.fa-film').style.color='black';
         
-    // })
+    })
 
 
     async function postreq(){
