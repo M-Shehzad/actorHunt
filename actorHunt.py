@@ -11,6 +11,7 @@ from flask import (
 import writingInfo
 import requests
 import sqlite3
+import json
 
 app = Flask(__name__)
 
@@ -32,7 +33,7 @@ def getJson():
         actorName, actorBD, actorJobs, actorPhotoPath, _ = writingInfo.DoIt(req["name"])
         
         res = make_response(
-            jsonify(
+            json.dumps(
                 {
                     "name": actorName,
                     "job": actorJobs[1:-1],
