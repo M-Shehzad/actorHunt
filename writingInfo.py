@@ -5,7 +5,7 @@ import docx, os
 import sqlite3
 
 # imdb actor page
-# actor = input('Enter the actor name: ')
+
 def DoIt(actor):
 
     try:
@@ -15,10 +15,10 @@ def DoIt(actor):
         cur.execute("CREATE TABLE IF NOT EXISTS ACTORHUNT (NAME TEXT PRIMARY KEY, DOB TEXT, JOB TEXT, PICTURE TEXT, INFO TEXT)")
         cur.execute("CREATE TABLE IF NOT EXISTS MOVIES (ACTORNAME TEXT, TITLE TEXT, YEAR TEXT, FOREIGN KEY (ACTORNAME) REFERENCES ACTORHUNT (NAME) )")
 
-        cur.execute("SELECT * FROM ACTORHUNT WHERE NAME = ?",(actor.lower(),))
+        cur.execute("SELECT * FROM ACTORHUNT WHERE NAME LIKE ?",('%'+actor.lower()+'%',))
         data0 = cur.fetchone()
 
-        cur.execute("SELECT * FROM MOVIES WHERE ACTORNAME = ?",(actor.lower(),))  
+        cur.execute("SELECT * FROM MOVIES WHERE ACTORNAME LIKE ?",('%'+actor.lower()+'%',))  
         data1 = cur.fetchall()
     except sqlite3.Error as e:
         print("database error:\n" ,e.args)
@@ -117,7 +117,8 @@ def fetchAndSave(actor):
         cur.close()
         conn.close()
     except sqlite3.Error as e:
-        print("database error:\n" , e.args)
+        print("database key constraint error:\n" , e.args)
+        return ['check spelling', 'nil', 'nil', 'nil', 'nil']
 
     try:
         writeDoc(data0)

@@ -1,11 +1,8 @@
 from flask import (
     Flask,
     json,
-    redirect,
-    url_for,
     render_template,
     request,
-    jsonify,
     make_response,
 )
 import writingInfo
