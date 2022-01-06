@@ -52,7 +52,7 @@ def fetchAndSave(actor):
     try:
         actorpage = requests.get("https://www.imdb.com" + soupelem[0].get("href"))
         actorpage.raise_for_status()
-    except requests.exceptions.RequestException or IndexError as e:
+    except IndexError as e:
         print(e)
         return ['NOT FOUND', 'nil', 'nil', 'nil', 'nil']
 
@@ -95,6 +95,8 @@ def fetchAndSave(actor):
     try:
         conn = sqlite3.connect("database.sqlite")
         cur = conn.cursor()
+
+        print("writing database")
 
         cur.execute("INSERT INTO ACTORHUNT (NAME, DOB, JOB, PICTURE, INFO) VALUES (?, ?, ?, ?, ?)",(str(actorName).lower(), str(actorBD), str(actorJobs), str(actorPhoto), str(actorData.text),))
         conn.commit()
