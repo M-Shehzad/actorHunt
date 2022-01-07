@@ -6,31 +6,26 @@ from flask import (
     make_response,
 )
 import writingInfo
-import requests
-import sqlite3
 import json
 
+# Defining a FLASK web app
 app = Flask(__name__)
 
-
+# Route to the main page and rendering main page html
 @app.route("/", methods=["POST", "GET"])
 def mainPage():
     return render_template("index.html", content="")
-
-    # actorName, actorJobs, actorBD, actorPhotoPath = writingInfo.DoIt(request.form["actor"])
-    # return render_template("actorDisplay.html", content=[actorName, actorJobs, actorBD, actorPhotoPath])
-    # print(request.form["actor"])
 
 
 @app.route("/search", methods=["POST", "GET"])
 def getJson():
     if request.method == "POST":
-        req = request.get_json()
+        req = request.get_json() # getting the request data from client
 
         actorName, actorBD, actorJobs, actorPhotoPath, _ = writingInfo.DoIt(req["name"])
         
         res = make_response(
-            json.dumps(
+            json.dumps( # Converting the data received into an JSON Format
                 {
                     "name": actorName,
                     "job": actorJobs[1:-1],
@@ -38,9 +33,9 @@ def getJson():
                     "pic": actorPhotoPath,
                 }
             ),
-            200,
+            200, 
         )
-        return res
+        return res # returning the JSON data to client with STATUS 200 OK 
     return "get request received, something wrong"
 
 
@@ -48,4 +43,4 @@ def getJson():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) # debug is set True to refresh the server whenever the changes are made

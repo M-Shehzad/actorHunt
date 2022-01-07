@@ -1,29 +1,34 @@
-# ADP PROJECT
 import requests, bs4
 import openpyxl
 import docx, os
 import sqlite3
 
-# imdb actor page
 
 def DoIt(actor):
 
     try:
+        # Establish a connection with the sqlite database file
         conn = sqlite3.connect("database.sqlite")
         cur = conn.cursor()
 
+        # Creating the table if it dosen't exist in the database 
         cur.execute("CREATE TABLE IF NOT EXISTS ACTORHUNT (NAME TEXT PRIMARY KEY, DOB TEXT, JOB TEXT, PICTURE TEXT, INFO TEXT)")
         cur.execute("CREATE TABLE IF NOT EXISTS MOVIES (ACTORNAME TEXT, TITLE TEXT, YEAR TEXT, FOREIGN KEY (ACTORNAME) REFERENCES ACTORHUNT (NAME) )")
 
+        # SQLite query to search for an actor in the table ACTORHUNT of database
         cur.execute("SELECT * FROM ACTORHUNT WHERE NAME LIKE ?",('%'+actor.lower()+'%',))
-        data0 = cur.fetchone()
+        data0 = cur.fetchone() # retrieving all details from the returned search cursor
 
+        # SQLite query to search for all the movies of the actor in the table MOVIES of database
         cur.execute("SELECT * FROM MOVIES WHERE ACTORNAME LIKE ?",('%'+actor.lower()+'%',))  
         data1 = cur.fetchall()
     except sqlite3.Error as e:
         print("database error:\n" ,e.args)
 
     try:
+        # If the data is found in the database then close connection with database
+        # write the data into respective Doc and Excel file
+        # return the required data to the client 
         if data0 is not None:
             cur.close()
             conn.close()
@@ -31,6 +36,8 @@ def DoIt(actor):
             writeXL(data1)
             return data0
         else:
+            # If the data not found in the database then close connection with database
+            # call `fetchAndSave(actor)` function to scrape web for the details of the actor
             cur.close()
             conn.close()
             return fetchAndSave(actor)
@@ -40,12 +47,13 @@ def DoIt(actor):
 
 def fetchAndSave(actor):
     try:
+        # making request to the imdb website with the search query of the actor
         res = requests.get("https://www.imdb.com/find?q=" + actor.replace("", "+"))
         res.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(e)
 
-
+    # parsing html with BeautifulSoup
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     soupelem = soup.select(".result_text a")
 
@@ -56,7 +64,7 @@ def fetchAndSave(actor):
         print(e)
         return ['NOT FOUND', 'nil', 'nil', 'nil', 'nil']
 
-    # actor page soup
+    # actor page 
     try:
         soup = bs4.BeautifulSoup(actorpage.text, "html.parser")
 
@@ -71,7 +79,6 @@ def fetchAndSave(actor):
         actorBD = " ".join(
             list(map(lambda text: text.strip(), actorBDsoup.text.split("\n")))
         )
-        # print(actorJobs)
 
         # all the movies of the actor
         soupelem = soup.select("#filmo-head-actor + .filmo-category-section .filmo-row")
@@ -118,7 +125,9 @@ def fetchAndSave(actor):
         conn.close()
     except sqlite3.Error as e:
         print("database key constraint error:\n" , e.args)
-        return ['check spelling', 'nil', 'nil', 'nil', 'nil']
+        # if key constrint occurs during insertion then the client is prompted to check the spelling of the search query
+        return ['check spelling', 'nil', 'nil', 'nil', 'nil'] 
+# -------------------------------------------------------------------------------------------------------------
 
     try:
         writeDoc(data0)
@@ -137,7 +146,7 @@ def fetchAndSave(actor):
         return ["NOT FOUND", 'NIL', 'NIL', 'NIL', 'NIL']
 
 
-
+# function to write the actor movies into the excel sheet with extension .xlsx
 def writeXL(data1):
     wb = openpyxl.Workbook()
     sheet = wb.get_sheet_by_name("Sheet")
@@ -149,7 +158,9 @@ def writeXL(data1):
         sheet["B" + str(row+2)] = data1[row][2]
 
     wb.save("static/actorMovies.xlsx")
+    print("xlsx success")
 
+# function to write the actor data into the Word document with extension .docx
 def writeDoc(data0):
     os.makedirs("photos", exist_ok=True)
     try:
@@ -173,4 +184,4 @@ def writeDoc(data0):
     doc.add_paragraph(data0[4])
 
     doc.save("static/actordesc.docx")
-    print("success!")
+    print("docx success!")
