@@ -100,7 +100,7 @@ section {
 
 .btn:hover {
   transform: translateY(-0.2em);
-  background-color: blue;
+  background-color: blueviolet;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px;
   /* box-shadow: violet 0px 5px 15px; */
 }
