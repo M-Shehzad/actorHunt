@@ -105,7 +105,7 @@ def fetchAndSave(actor):
 
         print("writing database")
 
-        cur.execute("INSERT INTO ACTORHUNT (NAME, DOB, JOB, PICTURE, INFO) VALUES (?, ?, ?, ?, ?)",(str(actorName).lower(), str(actorBD), str(actorJobs), str(actorPhoto), str(actorData.text),))
+        cur.execute("INSERT INTO ACTORHUNT (NAME, DOB, JOB, PICTURE, INFO) VALUES (?, ?, ?, ?, ?)",(str(actorName).lower(), str(actorBD), ', '.join(actorJobs), str(actorPhoto), str(actorData.text),))
         conn.commit()
 
         for row in range(2, len(soupelem)+2):

@@ -28,7 +28,7 @@ def getJson():
             json.dumps( # Converting the data received into an JSON Format
                 {
                     "name": actorName,
-                    "job": actorJobs[1:-1],
+                    "job": actorJobs,
                     "dob": actorBD[5:],
                     "pic": actorPhotoPath,
                 }
