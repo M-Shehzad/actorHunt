@@ -1,8 +1,6 @@
-# ActorHunt
+# ActorHunt ([live Demo](https://actor-hunt.herokuapp.com/))
 
 _This project was made as a part of 5th semester assignment._
-
-[live Demo](https://actor-hunt.herokuapp.com/)
 
 ## 🔶 Introduction
 
